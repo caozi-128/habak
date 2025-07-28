@@ -11,6 +11,50 @@
             text-align: center; /* 水平居中标题文本 */
         }
     </style>
+ <title>有趣的按钮</title>
+    <style>
+        .tricky-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .tricky-button:hover {
+            background-color: #45a049;
+        }
+        .scroll-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            z-index: 1000;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            animation: scroll-left 15s linear infinite, fade-out 0.5s ease forwards 10s;
+        }
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes fade-out {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+    </style>
  </head>
 <body>
 <h1>🥵草籽的男同之家🥵</h1>
@@ -21,10 +65,21 @@
  <a href="https://www.runoob.com/cplusplus/cpp-tutorial.html" target="_blank" rel="noopener noreferrer">
   点我前往异世界😋
 </a>
-<button onclick="alert('你被骗了嘻嘻')" 
-        style="padding:10px 20px; font-size:16px; background-color:#4CAF50; color:white; border:none; border-radius:4px; cursor:pointer;">
-  点我会触发有意思的事情哦
-</button>
+<button id="trickyButton" class="tricky-button">点我会触发有意思的事情哦</button>
+
+    <script>
+        document.getElementById('trickyButton').addEventListener('click', function() {
+            // 检查是否已存在消息元素，若存在则移除
+            const existingMsg = document.querySelector('.scroll-message');
+            if (existingMsg) existingMsg.remove();
+
+            // 创建新的滚动消息元素
+            const scrollMsg = document.createElement('div');
+            scrollMsg.className = 'scroll-message';
+            scrollMsg.textContent = '你被骗了嘻嘻！';
+            document.body.insertBefore(scrollMsg, document.body.firstChild);
+        });
+    </script>
  <p>我爱我的兄弟❤❤❤</p>
 </body>
 </html>
