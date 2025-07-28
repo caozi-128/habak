@@ -7,6 +7,26 @@
  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
  <link rel="stylesheet" href="styles.css">
  <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        
+        .mouse-follower {
+            position: absolute;
+            pointer-events: none; /* 让鼠标事件穿透图片 */
+            transition: transform 0.1s ease-out; /* 添加平滑过渡效果 */
+            width: 100px; /* 图片宽度 */
+            height: auto; /* 保持图片比例 */
+            z-index: 999; /* 确保图片显示在最上层 */
+        }
+    </style>
+ <style>
         h1 {
             text-align: center; /* 水平居中标题文本 */
         }
@@ -65,7 +85,30 @@
     </style>
  </head>
 <body>
-  <img src="110214464.jpg" alt="右侧图片" class="float - right">
+ <script>
+        // 创建跟随鼠标的图片元素
+        const follower = document.createElement('img');
+        follower.src = ''; // 示例图片，可替换为实际图片路径
+        follower.alt = '跟随鼠标的图片';
+        follower.className = 'mouse-follower';
+        document.body.appendChild(follower);
+
+        // 鼠标移动事件处理
+        document.addEventListener('mousemove', (e) => {
+            // 获取鼠标在页面中的坐标
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // 计算图片应该显示的位置（居中显示在鼠标位置）
+            const imageWidth = follower.offsetWidth;
+            const imageHeight = follower.offsetHeight;
+            const posX = mouseX - imageWidth / 2;
+            const posY = mouseY - imageHeight / 2;
+            
+            // 设置图片位置
+            follower.style.transform = `translate(${posX}px, ${posY}px)`;
+        });
+    </script>
 <h1>🥵草籽的男同之家🥵</h1>
  <h4>“不戴TT真的不会得病吗？😰”</h4>
  <h4>"放心吧，梅有的事，不会疣事情的，得病的概率为淋😇"</h4>
