@@ -83,5 +83,45 @@
         });
     </script>
  <p>我爱我的兄弟❤❤❤</p>
+ <p>留言板😆</p>
+ <form id="messageForm">
+  <textarea id="message" placeholder="输入留言"></textarea>
+  <button type="submit">提交</button>
+</form>
+<div id="messagesList"></div>
+
+<script>
+  // 加载已有留言
+  function loadMessages() {
+    const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    const list = document.getElementById('messagesList');
+    list.innerHTML = messages.map(msg => `
+      <div class="message">
+        <p>${msg.content}</p>
+        <small>${new Date(msg.timestamp).toLocaleString()}</small>
+      </div>
+    `).join('');
+  }
+
+  // 提交新留言
+  document.getElementById('messageForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const content = document.getElementById('message').value;
+    if (!content) return;
+    
+    const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+    messages.push({
+      content,
+      timestamp: Date.now()
+    });
+    localStorage.setItem('messages', JSON.stringify(messages));
+    
+    document.getElementById('message').value = '';
+    loadMessages(); // 刷新列表
+  });
+
+  // 页面加载时初始化
+  loadMessages();
+</script>
 </body>
 </html>
