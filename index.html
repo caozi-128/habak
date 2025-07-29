@@ -6,6 +6,19 @@
  <link rel="icon" href="favicon.ico" type="image/x-icon">
  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
  <link rel="stylesheet" href="styles.css">
+ <title>持久化留言板</title>
+    <style>
+        /* 保持原有样式不变 */
+        .container { max-width: 600px; margin: 20px auto; padding: 20px; font-family: Arial, sans-serif; }
+        .message-form { margin-bottom: 30px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        #messageInput { width: 100%; height: 80px; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
+        button { padding: 8px 16px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        .message-list { border-top: 2px solid #eee; padding-top: 20px; }
+        .message-item { padding: 10px; margin-bottom: 15px; border-radius: 4px; background-color: #f9f9f9; position: relative; }
+        .message-time { font-size: 12px; color: #888; margin-top: 5px; text-align: right; }
+        .loading { text-align: center; color: #888; padding: 20px; }
+    </style>
  <style>
         h1 {
             text-align: center; /* 水平居中标题文本 */
@@ -83,5 +96,117 @@
         });
     </script>
  <p>我爱我的兄弟❤❤❤</p>
+ <div class="container">
+        <h2>留言板😆</h2>
+        
+        <div class="message-form">
+            <textarea id="messageInput" placeholder="请输入您的留言..."></textarea>
+            <br>
+            <button onclick="addMessage()">提交留言</button>
+        </div>
+        
+        <div id="loadingIndicator" class="loading">加载中...</div>
+        <div class="message-list" id="messageList">
+            <!-- 留言会通过JS动态添加到这里 -->
+        </div>
+    </div>
+
+    <!-- 引入Firebase库 -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js"></script>
+
+    <script>
+        // 配置Firebase（替换为你自己的配置）
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGusX_7NK64BCF_OEXcsXUEfJISXt6SnU",
+            authDomain: "wangzhanshujvku.firebaseapp.com",
+            projectId: "wangzhanshujvku",
+            storageBucket: "wangzhanshujvku.firebasestorage.app",
+            messagingSenderId: "542861159416",
+            appId: "1:542861159416:web:8d3d3a0cb068edd6f4040d"
+        };
+
+        // 初始化Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const messagesRef = db.collection("messages");
+
+        // 页面加载时获取所有留言
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMessages();
+        });
+
+        // 加载留言函数
+        function loadMessages() {
+            const messageList = document.getElementById('messageList');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            // 清空列表
+            messageList.innerHTML = '';
+            
+            // 监听数据库变化，实时更新留言
+            messagesRef.orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
+                messageList.innerHTML = ''; // 清空以避免重复
+                
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const messageItem = document.createElement('div');
+                    messageItem.className = 'message-item';
+                    messageItem.innerHTML = `
+                        <div class="message-content">${data.content}</div>
+                        <div class="message-time">${formatTimestamp(data.timestamp)}</div>
+                    `;
+                    messageList.appendChild(messageItem);
+                });
+                
+                // 隐藏加载指示器
+                loadingIndicator.style.display = 'none';
+            }, (error) => {
+                console.error("获取留言失败:", error);
+                loadingIndicator.textContent = "加载失败，请刷新页面";
+            });
+        }
+
+        // 添加留言函数
+        function addMessage() {
+            const input = document.getElementById('messageInput');
+            const messageText = input.value.trim();
+            
+            if (!messageText) {
+                alert('请输入留言内容！');
+                return;
+            }
+            
+            // 添加到Firebase
+            messagesRef.add({
+                content: messageText,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp() // 使用服务器时间
+            })
+            .then(() => {
+                input.value = ''; // 清空输入框
+            })
+            .catch((error) => {
+                console.error("添加留言失败:", error);
+                alert('提交失败，请重试');
+            });
+        }
+
+        // 格式化时间戳
+        function formatTimestamp(timestamp) {
+            if (!timestamp) return '';
+            
+            // 转换Firebase时间戳为JavaScript Date对象
+            const date = timestamp.toDate();
+            return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
+        }
+
+        // 支持按Enter键提交
+        document.getElementById('messageInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                addMessage();
+            }
+        });
+    </script>
 </body>
 </html>
