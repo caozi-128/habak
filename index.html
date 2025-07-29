@@ -7,19 +7,28 @@
  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
  <link rel="stylesheet" href="styles.css">
  <style>
-        .container {
-            position: relative;
+       .container {
+            display: flex;
             height: 100vh;
+            gap: 20px;
+            padding: 20px;
         }
-        img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 200px; /* 固定宽度 */
-            height: 300px; /* 固定高度 */
-            margin-top: -150px; /* 高度的一半，负值 */
-            margin-left: -100px; /* 宽度的一半，负值 */
+        .img-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+        .img-wrapper:first-child img {
+            max-height: 80vh;
+            max-width: 100%;
+        }
+        .img-wrapper:last-child img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* 保持原始比例，不裁剪 */
+        }
+        
     </style>
  <style>
         h1 {
@@ -80,14 +89,16 @@
  <h4>"放心吧，梅有的事，不会疣事情的，得病的概率为淋😇"</h4>
  <h4>最佳男同</h4>
  <div class="container">
-        <img src="QQ20250729-175129.png" alt="垂直居中图片">
-    </div>
+        <div class="img-wrapper">
+            <img src="QQ202500729-175129.png" alt="第一张图片">
+        </div>
  <p>此男同罪大恶极，竟想反攻本南梁站长，罚被15个黑人论剑😉</p>
  <div style="height: 20px;"></div> <!-- 空的div，高度为20px -->
  <h4>最佳女同（是的，还有女同）</h4>
- <div class="container">
-  <img src="QQ20250729-202539.png" alt="垂直居中图片">
- </div>
+ <div class="img-wrapper">
+            <img src="QQ20250729-202539.png" alt="第二张图片">
+        </div>
+    </div>
   <p>年愁今夜未到乡，卧思可哀笑南梁😋</p>
  <p>本站源于一个本想成为C++大王却摸鱼写起前端的小南梁（小声BB）</p>
  <a href="https://www.runoob.com/cplusplus/cpp-tutorial.html" target="_blank" rel="noopener noreferrer">
