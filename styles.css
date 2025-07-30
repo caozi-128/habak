@@ -1,31 +1,5 @@
 body {
     background-color: lightblue;
 }
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background-color: lightblue; /* 保持原有背景色 */
-}
 
-.content {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* 新增：美少女图片样式 */
-.character-image {
-    position: fixed; /* 固定在视口 */
-    right: 0;        /* 靠右 */
-    bottom: 0;       /* 靠下 */
-    width: 265px;    /* 指定宽度 */
-    height: 422px;   /* 指定高度 */
-    background-image: url("110214464.jpg");
-    background-repeat: no-repeat;
-    background-size: contain;    /* 保持比例 */
-    background-position: center; /* 居中显示 */
-}
+  
