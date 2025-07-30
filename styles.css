@@ -1,3 +1,26 @@
 body {
     background-color: lightblue;
 }
+/* 页面整体样式，确保 body 充满屏幕，避免默认边距 */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* 让 body 高度至少等于屏幕高度 */
+            /* 设置背景图 */
+            background-image: url("110214464.jpg"); /* 替换为你的图片路径 */
+            background-repeat: no-repeat; /* 不重复 */
+            background-size: contain; /* 保持比例，完整显示图片（可能留空白） */
+            background-position: center; /* 居中显示（空白区域在四周） */
+            /* 可选：设置背景色，作为图片周围空白区域的填充色 */
+            background-color: #f5f5f5; /* 浅灰色背景，与图片区分 */
+        }
+
+        /* 页面内容区域（避免遮挡背景图） */
+        .content {
+            max-width: 800px; /* 限制内容宽度 */
+            margin: 20px auto; /* 居中 */
+            padding: 20px;
+            background-color: white; /* 白色背景，突出内容 */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
