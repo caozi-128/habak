@@ -1,24 +1,31 @@
 body {
     background-color: lightblue;
 }
-/* 页面整体样式，确保 body 充满屏幕，避免默认边距 */
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh; /* 让 body 高度至少等于屏幕高度 */
-            /* 设置背景图 */
-            background-image: url("110214464.jpg"); /* 替换为你的图片路径 */
-            background-repeat: no-repeat; /* 不重复 */
-            background-size: contain; /* 保持比例，完整显示图片（可能留空白） */
-            background-position: center; /* 居中显示（空白区域在四周） */
-        }
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: lightblue; /* 保持原有背景色 */
+}
 
-        /* 页面内容区域（避免遮挡背景图） */
-        .content {
-            max-width: 800px; /* 限制内容宽度 */
-            margin: 20px auto; /* 居中 */
-            padding: 20px;
-            background-color: lightblue; 
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+.content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 新增：美少女图片样式 */
+.character-image {
+    position: fixed; /* 固定在视口 */
+    right: 0;        /* 靠右 */
+    bottom: 0;       /* 靠下 */
+    width: 265px;    /* 指定宽度 */
+    height: 422px;   /* 指定高度 */
+    background-image: url("110214464.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;    /* 保持比例 */
+    background-position: center; /* 居中显示 */
+}
