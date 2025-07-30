@@ -18,7 +18,7 @@ body {
             max-width: 800px; /* 限制内容宽度 */
             margin: 20px auto; /* 居中 */
             padding: 20px;
-            background-color: white; /* 白色背景，突出内容 */
+            background-color: lightblue; 
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
